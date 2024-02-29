@@ -6,12 +6,8 @@ import excelImage from './img/excel.PNG';
 
 const ImportExcelPage = () => {
   const [file, setFile] = useState(null);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [departmentFilter, setDepartmentFilter] = useState('');
-  const [sectionFilter, setSectionFilter] = useState('');
   const [consultedData, setConsultedData] = useState([]);
-
+  
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -31,17 +27,11 @@ const ImportExcelPage = () => {
       const sheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-      // Aplicar filtros, se necessário, nos dados importados
-      const filteredData = jsonData.filter(item => {
-        // Implementar lógica de filtragem aqui
-        return true;
-      });
-
-      // Aqui você pode enviar filteredData para o backend para salvar no banco de dados
-      saveDataToDatabase(filteredData);
+      // Aqui você pode enviar jsonData para o backend para salvar no banco de dados
+      saveDataToDatabase(jsonData);
 
       // Atualizar o estado com os dados consultados
-      setConsultedData(filteredData);
+      setConsultedData(jsonData);
     };
 
     reader.readAsArrayBuffer(file);
@@ -59,50 +49,6 @@ const ImportExcelPage = () => {
       <input type="file" accept=".xlsx,.xls" onChange={handleFileChange} />
       <button onClick={handleImport}>Importar Planilha</button>
 
-      <div className="filters">
-        <div className="input-container">
-          <label>Data Inicial:</label>
-          <input type="date" className="date-input" value={startDate} onChange={e => setStartDate(e.target.value)} />
-        
-          <label>Data Final:</label>
-          <input type="date" className="date-input" value={endDate} onChange={e => setEndDate(e.target.value)} />
-        </div>
-
-        <div className="input-container">
-          <label>Departamento:</label>
-          <input type="text" className="text-input" value={departmentFilter} onChange={e => setDepartmentFilter(e.target.value)} />
-        </div>
-
-        <div className="input-container">
-          <label>Seção:</label>
-          <input type="text" className="text-input" value={sectionFilter} onChange={e => setSectionFilter(e.target.value)} />
-        </div>
-
-        <button className="consulta" onClick={handleImport}>Consultar</button>
-      </div>
-
-      {/* Grid para exibir os dados consultados */}
-      <div className="consulted-data">
-      <h1>Dados da Tabela Class Mercadologica</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Coluna 1</th>
-              <th>Coluna 2</th>
-              {/* Adicione mais colunas conforme necessário */}
-            </tr>
-          </thead>
-          <tbody>
-            {consultedData.map((rowData, index) => (
-              <tr key={index}>
-                <td>{rowData[0]}</td>
-                <td>{rowData[1]}</td>
-                {/* Adicione mais células conforme necessário */}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 };

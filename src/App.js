@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
 import ImportExcelPage from './ImportExcelPage';
+import FiltrosClassMerc from './FiltrosClassMerc';
 
 function App() {
   const [classMercadologicaData, setClassMercadologicaData] = useState([]);
+  const [consultedData, setConsultedData] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -21,9 +23,9 @@ function App() {
 
   return (
     <div className="App">
-     
       <div className="data-container">
-        <ImportExcelPage data={classMercadologicaData} />
+        <ImportExcelPage data={consultedData.length > 0 ? consultedData : classMercadologicaData} />
+        <FiltrosClassMerc data={classMercadologicaData} setConsultedData={setConsultedData} />
       </div>
     </div>
   );
