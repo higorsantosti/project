@@ -73,6 +73,22 @@ input[type="text"] {
 .date-input-container {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
+}
+
+.date-input-container label {
+  margin-right: 10px;
+  width: 80px; /* Reduzindo a largura do rótulo */
+}
+
+.date-input-container input[type="date"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px; /* Espaçamento entre o campo de data e o rótulo */
+  width: auto; /* Redefinir a largura automática */
+  min-width: 150px; /* Largura mínima do campo de data */
 }
 
 .date-input {

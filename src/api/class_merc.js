@@ -1,7 +1,19 @@
-const express = require('express');
-const router = express.Router();
-const { getAllClassMercadologica } = require('./routes');
+const { Pool } = require('pg');
+const dbConfig = require('./dbConfig'); // Importe as configurações do banco de dados
 
-router.get('/class_mercadologica', getAllClassMercadologica);
+const pool = new Pool(dbConfig);
 
-module.exports = router;
+const getAllClassMercadologica = (req, res) => {
+  pool.query('SELECT * FROM class_mercadologica', (error, results) => {
+    if (error) {
+      console.error('Erro ao obter dados da tabela:', error);
+      res.status(500).json({ error: 'Erro interno do servidor' });
+      return;
+    }
+    res.status(200).json(results.rows);
+  });
+};
+
+module.exports = {
+  getAllClassMercadologica,
+};
