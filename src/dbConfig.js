@@ -11,6 +11,6 @@ export const saveDataToDatabase = (data) => {
   
     console.log('Dados importados:', data);
     console.log('Configurações do banco de dados:', dbConfig);
-    // Adicione aqui a lógica para salvar os dados no banco de dados
+    
   };
   

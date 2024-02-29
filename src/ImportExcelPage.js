@@ -83,7 +83,7 @@ const ImportExcelPage = () => {
 
       {/* Grid para exibir os dados consultados */}
       <div className="consulted-data">
-        <h3>Dados Consultados</h3>
+      <h1>Dados da Tabela Class Mercadologica</h1>
         <table>
           <thead>
             <tr>
