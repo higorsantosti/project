@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
-const dbConfig = require('./dbConfig'); // Importe as configurações do banco de dados
+const dbConfig = require('../dbConfig');
+
 
 const pool = new Pool(dbConfig);
 
